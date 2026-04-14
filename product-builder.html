@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Builder (Internal) - Z3N</title>
+  <meta name="description" content="Internal Builder — secure delivery, updates, and onboarding through Z3N.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    .builder-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 20px 100px;
+    }
+    .builder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .builder-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+    }
+    .builder-card h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .builder-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .builder-card p.lead {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .builder-points {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+    }
+    .builder-points li {
+      padding: 12px 0 12px 28px;
+      position: relative;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .builder-points li:last-child { border-bottom: none; }
+    .builder-points li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.1em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .builder-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .builder-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .builder-actions a:first-child {
+      background: var(--accent);
+      color: #fff;
+    }
+    .builder-actions a:first-child:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(59, 130, 246, 0.35);
+    }
+    .builder-actions a.secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .builder-actions a.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo.png" alt="Z3N">
+          <span class="nav-tagline">External & internal cheats</span>
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+        <button type="button" class="nav-icon-btn" id="settings-btn" aria-label="Settings">⚙</button>
+        <div id="nav-right"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content" class="builder-wrap">
+    <div class="builder-card">
+      <span class="builder-badge">Internal</span>
+      <h1>Builder</h1>
+      <p class="lead">Internal toolchain for packaging, configuration, and release-ready builds. Access is gated; we onboard through Discord with secure delivery and update channels.</p>
+      <ul class="builder-points">
+        <li>Secure delivery of internal artifacts and update manifests.</li>
+        <li>Versioned rollouts aligned with our product lines.</li>
+        <li>Direct support for setup, serial-related workflows, and internals.</li>
+      </ul>
+      <div class="builder-actions">
+        <a href="https://discord.com/invite/FkrXEyFA">Request access on Discord</a>
+        <a href="products.html" class="secondary">Back to products</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="padding: 40px 0;">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>initAuth();</script>
+</body>
+</html>

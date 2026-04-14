@@ -1,0 +1,68 @@
+### How to Switch Between Localhost and Your Live Domain
+
+This guide explains how to switch your store's URL configuration between your local development environment (`localhost`) and your live production domain.
+
+**There are two places you need to update:**
+
+1.  **The `.env` file** (for the server)
+2.  **The Discord Developer Portal** (for Discord login)
+
+---
+
+### Step 1: Update the `.env` File
+
+This file tells your server what its public URL is. This is the most important step.
+
+1.  Open the `.env` file in your project's main directory.
+2.  Find the `BASE_URL` variable.
+
+*   **For Local Development:**
+    Set it to `http://localhost:3000` (or whatever port you are using).
+    ```
+    BASE_URL=http://localhost:3000
+    ```
+
+*   **For Your Live Website:**
+    Set it to your full production domain.
+    ```
+    BASE_URL=https://yourdomain.com
+    ```
+
+3.  Save the `.env` file.
+4.  **IMPORTANT:** You must **restart your server** for this change to take effect. Stop the server (with `Ctrl+C`) and start it again.
+
+---
+
+### Step 2: Update the Discord Developer Portal
+
+This step ensures that users can log in with Discord, whether they are on your live site or you are testing locally.
+
+1.  Go to the **[Discord Developer Portal](https://discord.com/developers/applications)** and select your application.
+2.  In the left sidebar, go to **OAuth2** > **General**.
+3.  Under the **Redirects** section, you need to make sure the correct URL is listed.
+
+*   **For Local Development:**
+    You need a redirect URL for `localhost`. If it's not already there, click **"Add Redirect"** and paste in:
+    ```
+    http://localhost:3000/auth/discord/callback
+    ```
+
+*   **For Your Live Website:**
+    You need a redirect URL for your live domain. If it's not already there, click **"Add Redirect"** and paste in:
+    ```
+    https://yourdomain.com/auth/discord/callback
+    ```
+
+**Pro Tip:** You can have **both** redirect URLs saved in the Discord Developer Portal at the same time. This is the recommended approach, as it allows you to test locally without breaking your live site's login.
+
+4.  Click **"Save Changes"** at the bottom of the page.
+
+---
+
+### Summary
+
+*   To work locally, set `BASE_URL` in `.env` to `http://localhost:3000`.
+*   To go live, set `BASE_URL` in `.env` to `https://yourdomain.com`.
+*   Ensure the matching redirect URL is saved in the Discord Developer Portal.
+*   **Always restart your server after changing the `.env` file.**
+* (also always change your (port)s as well)

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - Z3N</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    .products-hero {
+      padding: 120px 0 60px;
+      text-align: center;
+    }
+    .products-hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .products-hero .sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .products-grid-simple {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .product-simple-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .product-simple-card:hover {
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 212, 255, 0.15);
+      transform: translateY(-4px);
+    }
+    .product-simple-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .product-simple-header h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .product-simple-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .category-section {
+      margin-bottom: 60px;
+    }
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .category-desc {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo-wordmark.png" alt="Z3N" style="height: 32px; width: auto; object-fit: contain; display: block;">
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="products-hero">
+      <div class="container">
+        <h1>Products</h1>
+        <p class="sub">External and internal game cheats — Roblox External launching really soon; CS2 internal &amp; external in active development.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- Externals -->
+        <div class="category-section">
+          <h2 class="category-title">Externals</h2>
+          <p class="category-desc">External cheats run outside the game process.</p>
+          <div class="products-grid-simple">
+            <a href="product-temp.html" class="product-simple-card">
+              <div class="product-simple-header">
+                <h3>Roblox External</h3>
+                <span class="price-badge">SOON</span>
+              </div>
+              <p>Publishing really soon — ESP, aimbot, and more. Secure delivery and updates when we go live.</p>
+            </a>
+            <a href="product-cs2-external.html" class="product-simple-card">
+              <div class="product-simple-header">
+                <h3>CS2 External</h3>
+                <span class="price-badge">DEVELOPING</span>
+              </div>
+              <p>In active development — not available for purchase yet. Follow Discord for progress.</p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Internals -->
+        <div class="category-section">
+          <h2 class="category-title">Internals</h2>
+          <p class="category-desc">Internal cheats run inside the game process.</p>
+          <div class="products-grid-simple">
+            <a href="product-cs2-internal.html" class="product-simple-card">
+              <div class="product-simple-header">
+                <h3>CS2 Internal</h3>
+                <span class="price-badge">DEVELOPING</span>
+              </div>
+              <p>In active development — not available for purchase yet. Follow Discord for progress.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Z3N</h3>
+          <p>External &amp; internal cheats. Discord-backed support.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="products.html#externals">Externals</a></li>
+              <li><a href="products.html#internals">Internals</a></li>
+              <li><a href="products.html">All products</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="https://discord.com/invite/FkrXEyFA">Discord</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    initAuth();
+    
+    // Create particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+  </script>
+</body>
+</html>

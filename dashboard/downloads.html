@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Downloads - Z3N Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Dashboard Layout */
+    .dashboard-layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 65px;
+    }
+    
+    .dashboard-sidebar {
+      width: 260px;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 65px;
+      left: 0;
+      bottom: 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidebar-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 25, 45, 0.95);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 51;
+    }
+    
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    
+    .sidebar-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+    
+    .sidebar-user-info {
+      min-width: 0;
+      flex: 1;
+    }
+    
+    .sidebar-user-info h4 {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+      font-size: 0.95rem;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .sidebar-user-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-section {
+      margin-bottom: 24px;
+    }
+    
+    .nav-page-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-left: 12px;
+    }
+    
+    .welcome-section {
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-shrink: 0;
+      width: 100%;
+    }
+    
+    .nav-section-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+    
+    .welcome-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    
+    .welcome-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      text-align: left;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      margin-bottom: 4px;
+    }
+    
+    .nav-item:hover {
+      background: rgba(0, 212, 255, 0.05);
+      color: var(--text);
+    }
+    
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 212, 255, 0.05) 100%);
+      color: var(--accent);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .sidebar-logout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: #ef4444;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .sidebar-logout:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    
+    .dashboard-main {
+      flex: 1;
+      margin-left: 260px;
+      padding: 32px;
+      max-width: calc(100% - 260px);
+    }
+    
+    /* Page Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    
+    .page-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .page-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    /* Downloads Grid */
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .download-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .download-card:hover {
+      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+    }
+    
+    .download-card:hover::before {
+      opacity: 1;
+    }
+    
+    .download-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .download-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(79, 172, 254, 0.1) 100%);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .download-icon svg {
+      width: 30px;
+      height: 30px;
+      color: var(--accent);
+    }
+    
+    .download-info {
+      flex: 1;
+    }
+    
+    .download-info h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    
+    .download-version {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    
+    .download-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .download-description {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      min-height: 48px;
+    }
+    
+    .download-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .download-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    .download-meta-item svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      border: none;
+      border-radius: 12px;
+      color: var(--bg);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    }
+    
+    .download-btn:disabled {
+      background: var(--border);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* Empty State */
+    .downloads-empty {
+      text-align: center;
+      padding: 100px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+    }
+    
+    .downloads-empty-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 28px;
+      background: rgba(0, 212, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      color: var(--accent);
+    }
+    
+    .downloads-empty h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    
+    .downloads-empty p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 400px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    
+    .downloads-empty-note {
+      font-size: 0.9rem;
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
+      padding: 12px 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    
+    /* Mobile Toggle */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      color: var(--bg);
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .dashboard-sidebar.open {
+        transform: translateX(0);
+      }
+      
+      .dashboard-main {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 20px;
+      }
+      
+      .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .downloads-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="../index.html" class="nav-logo">
+          <img src="../assets/logo-wordmark.png" alt="Z3N" style="height: 32px; width: auto; object-fit: contain; display: block;">
+        </a>
+        <a href="../products.html" class="nav-links">Products</a>
+        <a href="../about.html" class="nav-links">About</a>
+        <a href="../contact.html" class="nav-links">Contact</a>
+        <a href="../dashboard.html" class="nav-links">Dashboard</a>
+        <span class="nav-page-title">Downloads</span>
+      </div>
+      <div class="nav-right-wrap">
+        <button type="button" class="nav-icon-btn" id="cart-btn" aria-label="Open Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-user">
+          <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar" class="sidebar-avatar" id="user-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+          <div class="sidebar-user-info">
+            <h4 id="user-name">Loading...</h4>
+            <p id="user-email">Loading...</p>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Main</div>
+          <a href="../dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Overview
+          </a>
+          <a href="orders.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Orders
+          </a>
+          <a href="downloads.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Downloads
+          </a>
+          <a href="contact-logs.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+            Contact Logs
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Account</div>
+          <a href="../my-keys.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+            </svg>
+            My Keys
+          </a>
+          <a href="../products.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            Shop
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" onclick="logout()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Downloads</h1>
+          <p>Download your purchased products</p>
+        </div>
+      </div>
+
+      <!-- Downloads Grid -->
+      <div class="downloads-grid" id="downloads-grid">
+        <div class="downloads-empty">
+          <div class="downloads-empty-icon">
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <h3>No Downloads Available</h3>
+          <p>When you purchase a product, the download will be available here once our team processes your order.</p>
+          <div class="downloads-empty-note">
+            Downloads are sent manually after order verification
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <button class="sidebar-toggle" id="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Cart Panel -->
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    initAuth({ requireLogin: true });
+
+    // Load user data
+    async function loadUserData() {
+      try {
+        const res = await fetch('/api/me', { credentials: 'include' });
+        const data = await res.json();
+        
+        if (data.loggedIn && data.user) {
+          const name = data.user.global_name || data.user.username;
+          document.getElementById('user-name').textContent = name;
+          document.getElementById('user-email').textContent = '@' + data.user.username;
+          
+          if (data.user.avatar) {
+            document.getElementById('user-avatar').src = 
+              `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.png`;
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load user:', err);
+      }
+    }
+
+    // Load downloads
+    async function loadDownloads() {
+      try {
+        const res = await fetch('/api/my-downloads', { credentials: 'include' });
+        const downloads = await res.json() || [];
+        renderDownloads(downloads);
+      } catch (err) {
+        console.error('Failed to load downloads:', err);
+      }
+    }
+
+    function formatFileSize(bytes) {
+      if (!bytes) return 'Unknown';
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(1024));
+      return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    function renderDownloads(downloads) {
+      const container = document.getElementById('downloads-grid');
+      
+      if (downloads.length === 0) {
+        container.innerHTML = `
+          <div class="downloads-empty">
+            <div class="downloads-empty-icon">
+              <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <h3>No Downloads Available</h3>
+            <p>When you purchase a product, the download will be available here once our team processes your order.</p>
+            <div class="downloads-empty-note">
+              Downloads are sent manually after order verification
+            </div>
+          </div>`;
+        return;
+      }
+      
+      container.innerHTML = downloads.map(dl => `
+        <div class="download-card">
+          <div class="download-header">
+            <div class="download-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <div class="download-info">
+              <h3>${dl.productName || 'Product'}</h3>
+              <div class="download-version">${dl.version || 'v1.0.0'}</div>
+              <div class="download-date">Added ${new Date(dl.date).toLocaleDateString()}</div>
+            </div>
+          </div>
+          <p class="download-description">${dl.description || 'Your purchased product download is ready. Click below to download the latest version.'}</p>
+          <div class="download-meta">
+            <div class="download-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              ${formatFileSize(dl.fileSize)}
+            </div>
+            <div class="download-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Expires: ${dl.expires ? new Date(dl.expires).toLocaleDateString() : 'Never'}
+            </div>
+          </div>
+          <a href="${dl.url}" class="download-btn" download>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Now
+          </a>
+        </div>
+      `).join('');
+    }
+
+    loadUserData();
+    loadDownloads();
+  </script>
+</body>
+</html>

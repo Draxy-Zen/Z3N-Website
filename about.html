@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Z3N</title>
+  <meta name="description" content="About Z3N — Draxy &amp; notcokie. Roblox External soon; CS2 internal &amp; external in development. External &amp; internal cheats only.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    /* Enhanced About Page Styles */
+    .about-hero {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-elevated) 50%, rgba(59, 130, 246, 0.1) 100%);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 50%);
+      z-index: -1;
+    }
+    
+    .about-hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .about-hero p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    
+    .hero-stats-modern {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    
+    .mission-section {
+      padding: 100px 0;
+      background: var(--bg-elevated);
+      position: relative;
+    }
+    
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    
+    .mission-content h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    
+    .mission-content p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    
+    .mission-visual {
+      position: relative;
+      height: 400px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .mission-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 30px;
+    }
+    
+    .values-section {
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+    
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 50px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .value-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .value-icon {
+      font-size: 4rem;
+      margin-bottom: 30px;
+      display: block;
+    }
+    
+    .value-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    
+    .value-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+    
+    .team-section {
+      padding: 100px 0;
+      background: var(--bg-elevated);
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+    
+    .team-member {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .member-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .team-member h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    
+    .team-member .role {
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    
+    .team-member p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .cta-section {
+      padding: 60px 0;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin: 60px 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+    .cta-dual-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-cta-outline:hover {
+      border-color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 0 0 50px rgba(0, 212, 255, 0.2);
+    }
+    /* ... */
+    .btn-cta-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-cta-large:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 212, 255, 0.3);
+    }
+    /* ... */
+    .member-avatar {
+      width: 100px;
+      height: 100px;
+      margin: 100px 0;
+    }
+    
+    .about-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .about-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 48px auto 0;
+    }
+    .about-bento-card {
+      padding: 28px 24px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      text-align: left;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .about-bento-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    .about-bento-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .about-bento-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .about-trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      max-width: 920px;
+      margin: 48px auto 0;
+    }
+    .about-trust-pill {
+      padding: 14px 22px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      text-align: left;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .about-trust-pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    .about-trust-pill strong { color: var(--text); }
+    .about-trust-pill a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .about-trust-pill a:hover { text-decoration: underline; }
+    .owner-intro { text-align: center; color: var(--text-muted); max-width: 620px; margin: -8px auto 40px; line-height: 1.6; font-size: 1.05rem; }
+    .owner-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+    .owner-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: center;
+      margin: 0;
+      padding: 36px 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.12);
+    }
+    .owner-cards-grid .owner-card { max-width: none; }
+    .owner-card--co {
+      box-shadow: 0 0 40px rgba(180, 140, 80, 0.1);
+      border-color: rgba(180, 150, 100, 0.35);
+    }
+    .owner-avatar-wrap {
+      flex-shrink: 0;
+    }
+    .owner-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(56, 189, 248, 0.65);
+      box-shadow: 0 0 32px rgba(56, 189, 248, 0.35), 0 0 60px rgba(99, 102, 241, 0.15);
+      display: block;
+    }
+    .owner-card--co .owner-avatar {
+      border-color: rgba(200, 165, 90, 0.7);
+      box-shadow: 0 0 28px rgba(200, 165, 90, 0.25), 0 0 48px rgba(120, 90, 50, 0.12);
+    }
+    .owner-bio h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .owner-role {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+    .owner-handle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+    }
+    .owner-handle span { color: var(--text); font-weight: 500; }
+    .owner-tagline {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin: 0 0 20px;
+    }
+    .owner-highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+    .owner-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      color: var(--text-muted);
+      line-height: 1.55;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.98rem;
+    }
+    .owner-highlights li:last-child { border-bottom: none; }
+    .owner-hi-emoji { flex-shrink: 0; font-size: 1.1rem; }
+    @media (max-width: 960px) {
+      .owner-cards-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .about-hero h1 { font-size: 2.5rem; }
+      .about-hero p { font-size: 1.1rem; }
+      .about-trust-row { margin-top: 36px; }
+      .about-bento { grid-template-columns: 1fr; margin-top: 36px; }
+      .mission-grid { grid-template-columns: 1fr; gap: 40px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      .owner-cards-grid { grid-template-columns: 1fr; }
+      .owner-card { grid-template-columns: 1fr; text-align: center; padding: 32px 24px; }
+      .owner-avatar-wrap { display: flex; justify-content: center; }
+      .owner-highlights { text-align: left; }
+      .cta-section { margin: 60px 10px 0; }
+      .cta-section h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo-wordmark.png" alt="Z3N" style="height: 32px; width: auto; object-fit: contain; display: block;">
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="about-hero">
+      <div class="container">
+        <p class="about-eyebrow">Who we are</p>
+        <h1>About Z3N</h1>
+        <p>We're passionate gamers and developers building external and internal cheats — led by <strong>Draxy</strong> and co-leader <strong>notcokie</strong>. Roblox External is publishing really soon; CS2 Internal and CS2 External are in active development. Whether you're here for the cheats or the community, you're welcome at Z3N.</p>
+        
+        <div class="about-bento">
+          <div class="about-bento-card">
+            <h3>Externals</h3>
+            <p>Roblox External (really soon) and CS2 External — external-style cheats with secure delivery and updates when live.</p>
+          </div>
+          <div class="about-bento-card">
+            <h3>Internals</h3>
+            <p>CS2 Internal is in active development. We release when it's ready and support it properly after launch.</p>
+          </div>
+          <div class="about-bento-card">
+            <h3>Support</h3>
+            <p>Fast Discord support, live status updates, and real responses from our team when you need help.</p>
+          </div>
+        </div>
+
+        <div class="about-trust-row">
+          <div class="about-trust-pill"><strong>No vanity metrics</strong> — we do not publish fake user counts or star ratings.</div>
+          <div class="about-trust-pill"><strong>Status first</strong> — <a href="status.html">check the board</a> for real component health.</div>
+          <div class="about-trust-pill"><strong>Discord support</strong> — <a href="https://discord.com/invite/FkrXEyFA">talk to us</a> in the server.</div>
+          <div class="about-trust-pill"><strong>Secure delivery</strong> — keys and artifacts handled with care end to end.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-section">
+      <div class="container">
+        <div class="mission-grid">
+          <div class="mission-content">
+            <h2>Our Mission</h2>
+            <p>We believe every gamer deserves access to high-quality tools that enhance their gaming experience. Our mission is to provide reliable, secure, and innovative gaming software that gives you the competitive edge you need.</p>
+            <p>We're committed to shipping solid external and internal cheats — Roblox External really soon, then CS2 as each line is ready.</p>
+            <div style="margin-top: 30px;">
+              <a href="products.html" class="btn-primary">Explore Our Products</a>
+            </div>
+          </div>
+          <div class="mission-visual">
+            <img src="assets/target is tuff" alt="Target is Tuff">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="values-section">
+      <div class="container">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">🛡️</div>
+            <h3>Security First</h3>
+            <p>We prioritize user safety above all else. Every tool is thoroughly tested and regularly updated to ensure maximum security and reliability.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">⚡</div>
+            <h3>Performance Excellence</h3>
+            <p>Our tools are optimized for minimal system impact while delivering maximum gaming enhancement capabilities.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">🔄</div>
+            <h3>Continuous Innovation</h3>
+            <p>We constantly update our products to stay ahead of game updates and provide cutting-edge features.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">💬</div>
+            <h3>Community Focus</h3>
+            <p>We listen to our community and build tools that serve real gaming needs. Your feedback drives our development.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">🎯</div>
+            <h3>User-Centric Design</h3>
+            <p>Every feature is designed with the user in mind. Intuitive interfaces and extensive customization options.</p>
+          </div>
+          
+          <div class="value-card">
+            <div class="value-icon">🚀</div>
+            <h3>Accessibility</h3>
+            <p>From free tools to premium solutions, we offer options for every gamer, regardless of budget.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="team-section" id="team">
+      <div class="container">
+        <h2 class="section-title">Who runs Z3N</h2>
+        <p class="owner-intro">Two people behind the project — Draxy ships <strong>Roblox External</strong> really soon; notcokie leads <strong>CS2 Internal</strong> &amp; <strong>CS2 External</strong> with the same standard.</p>
+        <div class="owner-cards-grid">
+          <div class="owner-card">
+            <div class="owner-avatar-wrap">
+              <img src="assets/draxy-pfp.png" alt="Draxy, owner of Z3N" class="owner-avatar" width="160" height="160" loading="lazy">
+            </div>
+            <div class="owner-bio">
+              <h3>Draxy</h3>
+              <p class="owner-role">Owner of Z3N · Roblox External</p>
+              <p class="owner-handle">Discord: <span>draxyog.</span></p>
+              <p class="owner-tagline">we actually care</p>
+              <ul class="owner-highlights">
+                <li><span class="owner-hi-emoji" aria-hidden="true">💬</span> Real support that cares</li>
+                <li><span class="owner-hi-emoji" aria-hidden="true">⚡</span> Active &amp; improving community</li>
+                <li><span class="owner-hi-emoji" aria-hidden="true">👀</span> Your ideas matter — <strong>you won&apos;t be ignored</strong></li>
+              </ul>
+              <a href="https://discord.com/invite/FkrXEyFA" class="btn-primary">Join the Z3N Discord</a>
+            </div>
+          </div>
+          <div class="owner-card owner-card--co">
+            <div class="owner-avatar-wrap">
+              <img src="assets/notcokie-pfp.png" alt="notcokie, co-owner of Z3N" class="owner-avatar" width="160" height="160" loading="lazy">
+            </div>
+            <div class="owner-bio">
+              <h3>notcokie</h3>
+              <p class="owner-role">Co-owner · CS2 Internal &amp; CS2 External</p>
+              <p class="owner-handle">Discord: <span>67skibiditoilets</span></p>
+              <p class="owner-tagline">Draxy&apos;s right hand — same team, same Discord</p>
+              <ul class="owner-highlights">
+                <li><span class="owner-hi-emoji" aria-hidden="true">🎯</span> Lead development on CS2 internal &amp; external lines</li>
+                <li><span class="owner-hi-emoji" aria-hidden="true">🛠️</span> In the weeds with features, stability, and rollouts</li>
+                <li><span class="owner-hi-emoji" aria-hidden="true">🤝</span> Same community promise: you won&apos;t get left on read</li>
+              </ul>
+              <a href="https://discord.com/invite/FkrXEyFA" class="btn-primary">Join the Z3N Discord</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Enhance Your Gaming?</h2>
+          <p>See our status board, say hi to Draxy and notcokie in Discord, and grab products when they drop — we earn trust, we don&apos;t fake it.</p>
+          <div class="cta-dual-buttons">
+            <a href="https://discord.com/invite/FkrXEyFA" class="btn-cta-large">Join Discord →</a>
+            <a href="products.html" class="btn-cta-outline">View products →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Z3N</h3>
+          <p>External &amp; internal cheats. Discord-backed support.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="products.html#externals">Externals</a></li>
+              <li><a href="products.html#internals">Internals</a></li>
+              <li><a href="products.html">All products</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="https://discord.com/invite/FkrXEyFA">Discord</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    initAuth();
+    
+    // Create particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+  </script>
+</body>
+</html>

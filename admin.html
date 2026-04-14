@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Z3N</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-page {
+      min-height: 100vh;
+      padding: 80px 20px;
+    }
+    
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .admin-header {
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .admin-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .admin-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    
+    .admin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .form-group small {
+      display: block;
+      margin-top: 6px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    
+    .status-grid {
+      display: grid;
+      gap: 12px;
+    }
+    
+    .status-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .status-item label {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    
+    .status-item select {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 0;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+    
+    .message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    
+    .message.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--outage);
+      border: 1px solid var(--outage);
+    }
+    
+    @media (max-width: 768px) {
+      .admin-page {
+        padding: 20px 10px;
+      }
+      
+      .admin-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo.png" alt="Z3N">
+          <span class="nav-tagline">External & internal cheats</span>
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="status.html" class="nav-links">Status</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+        <button type="button" class="nav-icon-btn" id="settings-btn" aria-label="Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="login-gate" class="login-gate" style="display:none">
+    <div>
+      <h1>Access Required</h1>
+      <p>Sign in with a Discord account that has admin access.</p>
+      <button type="button" class="nav-cta" onclick="redirectToDiscordLogin()">Login with Discord</button>
+    </div>
+  </div>
+
+  <main id="main-content" class="admin-page">
+    <div class="admin-container">
+      <div class="admin-header">
+        <h1 class="admin-title">Admin Panel</h1>
+        <p class="admin-subtitle">Manage system settings and service status</p>
+      </div>
+      
+      <div id="admin-msg"></div>
+      
+      <!-- Stripe Configuration -->
+      <div class="admin-card">
+        <h2 class="card-title">Stripe Configuration</h2>
+        <form id="stripe-form">
+          <div class="form-group">
+            <label for="stripe-publishable-key">Publishable Key</label>
+            <input type="text" id="stripe-publishable-key" placeholder="pk_test_..." name="stripePublishableKey">
+            <small>Used for client-side Stripe operations</small>
+          </div>
+          <div class="form-group">
+            <label for="stripe-secret-key">Secret Key</label>
+            <input type="password" id="stripe-secret-key" placeholder="sk_test_..." name="stripeSecretKey">
+            <small>Used for server-side operations</small>
+          </div>
+          <div class="form-group">
+            <label for="stripe-webhook-secret">Webhook Secret (Optional)</label>
+            <input type="password" id="stripe-webhook-secret" placeholder="whsec_..." name="stripeWebhookSecret">
+            <small>Used to verify webhook events from Stripe</small>
+          </div>
+          <button type="submit" class="btn-primary">Save Stripe Settings</button>
+        </form>
+      </div>
+      
+      <!-- Service Status -->
+      <div class="admin-card">
+        <h2 class="card-title">Service Status</h2>
+        <form id="admin-form">
+          <div class="status-grid" id="admin-fields"></div>
+          <button type="submit" class="btn-primary">Update Status</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Z3N"></a>
+      <p>© 2025. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <div id="settings-overlay" class="settings-overlay" aria-hidden="true">
+    <div class="settings-panel">
+      <div class="settings-panel-header">
+        <h2>Settings</h2>
+        <button type="button" class="settings-panel-close" id="settings-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="settings-panel-body">
+        <div class="settings-account" id="settings-account">Loading…</div>
+        <div class="settings-row">
+          <span>Theme</span>
+          <div class="theme-toggle">
+            <button type="button" id="theme-dark">Dark</button>
+            <button type="button" id="theme-light">Light</button>
+          </div>
+        </div>
+        <button type="button" class="settings-close" id="settings-close">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    getMe().then(function (me) {
+      if (!me.loggedIn) {
+        document.getElementById('login-gate').style.display = 'flex';
+        document.getElementById('main-content').style.display = 'none';
+        return;
+      }
+      if (!me.isAdmin) {
+        document.getElementById('login-gate').innerHTML = '<div><h1>Access Denied</h1><p>Only admins can access this page.</p><a href="index.html" class="nav-cta">Back to Home</a></div>';
+        document.getElementById('login-gate').style.display = 'flex';
+        document.getElementById('main-content').style.display = 'none';
+        return;
+      }
+    });
+    
+    initAuth();
+    
+    // Load Stripe config
+    fetch('/api/stripe-config', { credentials: 'include' })
+      .then(function (r) { return r.json(); })
+      .then(function (config) {
+        if (config.publishableKey) {
+          document.getElementById('stripe-publishable-key').value = config.publishableKey;
+        }
+        if (config.hasSecretKey) {
+          document.getElementById('stripe-secret-key').value = '•••••••••••••••••••••••••••••••••';
+        }
+        if (config.hasWebhookSecret) {
+          document.getElementById('stripe-webhook-secret').value = '•••••••••••••••••••••••••••••••••';
+        }
+      })
+      .catch(function () {});
+    
+    // Stripe form
+    document.getElementById('stripe-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = e.target;
+      var formData = {
+        publishableKey: form.stripePublishableKey.value.trim(),
+        secretKey: form.stripeSecretKey.value.trim(),
+        webhookSecret: form.stripeWebhookSecret.value.trim()
+      };
+      
+      if (formData.publishableKey && !formData.publishableKey.startsWith('pk_')) {
+        document.getElementById('admin-msg').innerHTML = '<div class="message error">Invalid publishable key format</div>';
+        return;
+      }
+      
+      if (formData.secretKey && !formData.secretKey.startsWith('sk_')) {
+        document.getElementById('admin-msg').innerHTML = '<div class="message error">Invalid secret key format</div>';
+        return;
+      }
+      
+      fetch('/api/stripe-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(formData)
+      }).then(function (r) {
+        return r.json().then(function (data) {
+          if (r.ok) {
+            document.getElementById('admin-msg').innerHTML = '<div class="message success">Stripe configuration saved!</div>';
+            if (formData.secretKey) {
+              document.getElementById('stripe-secret-key').value = '•••••••••••••••••••••••••••••••••';
+            }
+          } else {
+            document.getElementById('admin-msg').innerHTML = '<div class="message error">' + (data.error || 'Failed to save') + '</div>';
+          }
+        });
+      }).catch(function () {
+        document.getElementById('admin-msg').innerHTML = '<div class="message error">Network error</div>';
+      });
+    });
+    
+    // Load status
+    fetch('/api/status', { credentials: 'include' })
+      .then(function (r) { return r.json(); })
+      .then(function (items) {
+        var wrap = document.getElementById('admin-fields');
+        wrap.innerHTML = items.map(function (item) {
+          return '<div class="status-item">' +
+            '<label>' + item.name + '</label>' +
+            '<select name="' + item.id + '" data-name="' + (item.name || '').replace(/"/g, '&quot;') + '">' +
+            '<option value="operational"' + (item.status === 'operational' ? ' selected' : '') + '>Operational</option>' +
+            '<option value="degraded"' + (item.status === 'degraded' ? ' selected' : '') + '>Degraded</option>' +
+            '<option value="outage"' + (item.status === 'outage' ? ' selected' : '') + '>Outage</option>' +
+            '</select></div>';
+        }).join('');
+      });
+    
+    // Status form
+    document.getElementById('admin-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = e.target;
+      var items = [];
+      form.querySelectorAll('.status-item').forEach(function (row) {
+        var sel = row.querySelector('select');
+        var label = row.querySelector('label');
+        var name = (sel && sel.getAttribute('data-name')) || (label && label.textContent.split(' (')[0].trim()) || sel.name;
+        items.push({ id: sel.name, name: name, status: sel.value });
+      });
+      fetch('/api/status', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(items)
+      }).then(function (r) {
+        return r.json().then(function (data) {
+          if (r.ok) {
+            document.getElementById('admin-msg').innerHTML = '<div class="message success">Status updated!</div>';
+          } else {
+            document.getElementById('admin-msg').innerHTML = '<div class="message error">' + (data.error || 'Failed') + '</div>';
+          }
+        });
+      }).catch(function () {
+        document.getElementById('admin-msg').innerHTML = '<div class="message error">Network error</div>';
+      });
+    });
+  </script>
+</body>
+</html>

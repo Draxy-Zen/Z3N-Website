@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z3N — External &amp; internal cheats</title>
+  <meta name="description" content="Z3N builds external and internal game cheats. Roblox External is publishing really soon. CS2 Internal and CS2 External are in active development.">
+  <meta name="keywords" content="Z3N, Roblox External, CS2, internal cheat, external cheat">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    .home-hero {
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      padding-top: 140px;
+      padding-bottom: 60px;
+    }
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(79, 172, 254, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(30, 80, 160, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(0, 212, 255, 0.08) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes heroGlow {
+      0% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+    .home-hero .container { position: relative; z-index: 1; }
+    .home-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.12) 0%, rgba(30, 80, 160, 0.15) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 
+        0 0 40px rgba(0, 212, 255, 0.15),
+        0 4px 20px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: eyebrowPulse 3s ease-in-out infinite;
+    }
+    .home-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes eyebrowPulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.15), 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+      50% { box-shadow: 0 0 60px rgba(0, 212, 255, 0.25), 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 10px var(--accent); }
+      50% { box-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
+    }
+    [data-theme="light"] .home-eyebrow {
+      border-color: rgba(0, 153, 204, 0.35);
+      box-shadow: 0 4px 20px rgba(0, 153, 204, 0.15);
+    }
+    .home-hero h1 {
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.3));
+    }
+    [data-theme="light"] .home-hero h1 {
+      background: linear-gradient(135deg, var(--text) 0%, #0099cc 50%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .home-trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .home-trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    .home-trust-pill:hover {
+      border-color: rgba(0, 212, 255, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 16px 50px rgba(0, 0, 0, 0.25), 
+        0 0 40px rgba(0, 212, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo-wordmark.png" alt="Z3N" style="height: 32px; width: auto; object-fit: contain; display: block;">
+                  </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="hero home-hero">
+      <div class="container">
+        <p class="home-eyebrow">Powered By Draxy</p>
+        <h1>External &amp; internal cheats — no fluff</h1>
+        <p class="sub">Game cheats that work. Roblox External launching soon. CS2 lines in active development.</p>
+        <div class="hero-buttons">
+          <a href="products.html" class="btn-primary">Browse products</a>
+          <a href="https://discord.com/invite/FkrXEyFA" class="btn-secondary">Join Discord</a>
+        </div>
+        <div class="home-trust-row" aria-label="Highlights">
+          <div class="home-trust-pill">Secure delivery</div>
+          <div class="home-trust-pill">Regular updates</div>
+          <div class="home-trust-pill">Fast Discord support</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-card">
+          <h2>Our Mission</h2>
+          <p>I'm Draxy, and together with my Co-leader notcokie, we're striving to become a known cheat selling business. We aim to reach the top of the best cheat selling businesses and build a good community. We work hard and never back down — our customers deserve the fun they want. We never ignore your suggestions or bug fixes, and we listen to all of you. We want to not only be the best seller in the cheat market, but also the best business that listens and supports our members' ideas in a positive way. We've seen cheats with communities that treat their members like trash, calling their questions stupid and cussing them out. Look no further — we are here to stay positive, support all your ideas, and we're always active trying to improve our community.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="features-grid compact">
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></div>
+            <h3>Secure delivery</h3>
+            <p>Keys and downloads handled safely from checkout to fulfillment.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+            <h3>Stay current</h3>
+            <p>Products maintained with updates — not abandoned after release.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+            <h3>Discord support</h3>
+            <p>Real help in the server. Launch news, updates, and setup assistance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Z3N</h3>
+          <p>External &amp; internal cheats. Discord-backed support.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="products.html#externals">Externals</a></li>
+              <li><a href="products.html#internals">Internals</a></li>
+              <li><a href="products.html">All products</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="https://discord.com/invite/FkrXEyFA">Discord</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    initAuth();
+    
+    // Create particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+  </script>
+</body>
+</html>

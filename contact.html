@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Z3N</title>
+  <meta name="description" content="Contact Z3N for support, business inquiries, or feedback. Join our Discord community or email us for assistance.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    /* Enhanced Contact Page Styles */
+    .contact-hero {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-elevated) 50%, rgba(59, 130, 246, 0.1) 100%);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.2) 0%, transparent 50%);
+      z-index: -1;
+    }
+    
+    .contact-hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .contact-hero p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .contact-options-section {
+      padding: 100px 0;
+    }
+    
+    .contact-options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+    
+    .contact-option-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-option-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      border-color: var(--accent);
+    }
+    
+    .contact-icon {
+      font-size: 4rem;
+      margin-bottom: 30px;
+      display: block;
+      color: var(--accent);
+    }
+    
+    .contact-option-card h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    
+    .contact-option-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    
+    .btn-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-discord {
+      background: #5865F2;
+      color: white;
+    }
+    
+    .btn-discord:hover {
+      background: #4a54cf;
+      transform: translateY(-3px);
+    }
+    
+    .btn-email {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-email:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+      outline: none;
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+    }
+
+    .contact-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .contact-trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 960px;
+      margin: 48px auto 0;
+    }
+    .contact-trust-card {
+      padding: 24px 20px;
+      border-radius: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .contact-trust-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+    }
+    .contact-trust-card strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .contact-trust-card span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .contact-trust-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-trust-card a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .contact-hero h1 { font-size: 2.5rem; }
+      .contact-hero p { font-size: 1.1rem; }
+      .contact-options-grid { grid-template-columns: 1fr; }
+      .contact-form { padding: 30px; }
+      .contact-trust-row { grid-template-columns: 1fr; margin-top: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo-wordmark.png" alt="Z3N" style="height: 32px; width: auto; object-fit: contain; display: block;">
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="contact-hero">
+      <div class="container">
+        <p class="contact-eyebrow">We respond fast</p>
+        <h1>Get in touch</h1>
+        <p>Questions about Roblox External (launch), CS2 internal/external development, or your order? Reach us on Discord or email — we route every ticket to the right person.</p>
+        <div class="contact-trust-row">
+          <div class="contact-trust-card">
+            <strong>Discord</strong>
+            <span>Fastest path for Roblox External, CS2 cheats, and delivery</span>
+          </div>
+          <div class="contact-trust-card">
+            <strong>Email</strong>
+            <span>Billing, legal, and detailed written requests</span>
+          </div>
+          <div class="contact-trust-card">
+            <strong>Status</strong>
+            <span><a href="status.html">Open status page</a> for API, delivery, and products</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-options-section">
+      <div class="container">
+        <h2 class="section-title">Our Support Channels</h2>
+        <div class="contact-options-grid">
+          <div class="contact-option-card">
+            <div class="contact-icon">💬</div>
+            <h3>Discord Community</h3>
+            <p>Join our active Discord community for real-time support, product updates, and community discussions.</p>
+            <a href="https://discord.com/invite/FkrXEyFA" class="btn-contact btn-discord">Join Discord</a>
+          </div>
+          
+          <div class="contact-option-card">
+            <div class="contact-icon">📧</div>
+            <h3>Email Support</h3>
+            <p>For detailed inquiries, business partnerships, or legal questions, send us an email.</p>
+            <a href="mailto:support@z3ngaming.com" class="btn-contact btn-email">Email Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <div class="container">
+        <h2 class="section-title">Send Us a Message</h2>
+        <div class="contact-form">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="discord">Your Discord Username</label>
+              <input type="text" id="discord" name="discord" placeholder="e.g. username#1234 or @username" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Z3N</h3>
+          <p>External &amp; internal cheats. Discord-backed support.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="products.html#externals">Externals</a></li>
+              <li><a href="products.html#internals">Internals</a></li>
+              <li><a href="products.html">All products</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="https://discord.com/invite/FkrXEyFA">Discord</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>initAuth();</script>
+  <script>
+    // Create particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+    
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Contact Form Submission
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const submitBtn = contactForm.querySelector('.btn-submit');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+          
+          const formData = {
+            name: document.getElementById('name').value,
+            discord: document.getElementById('discord').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+          };
+          
+          try {
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+              credentials: 'include'
+            });
+            
+            const result = await response.json().catch(() => null);
+            
+            if (response.ok) {
+              alert('✅ Message sent! Our team will contact you soon.');
+              contactForm.reset();
+            } else {
+              throw new Error(result?.error || 'Failed to send');
+            }
+          } catch (error) {
+            console.error('Contact form error:', error);
+            alert('❌ Failed to send message: ' + error.message);
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

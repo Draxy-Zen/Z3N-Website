@@ -1,0 +1,32 @@
+[
+  {
+    "id": "api",
+    "name": "API",
+    "status": "outage"
+  },
+  {
+    "id": "delivery",
+    "name": "Delivery",
+    "status": "outage"
+  },
+  {
+    "id": "discord",
+    "name": "Discord Support",
+    "status": "outage"
+  },
+  {
+    "id": "temp-spoofer",
+    "name": "Roblox External",
+    "status": "degraded"
+  },
+  {
+    "id": "cs2-internal",
+    "name": "CS2 Internal",
+    "status": "degraded"
+  },
+  {
+    "id": "cs2-external",
+    "name": "CS2 External",
+    "status": "degraded"
+  }
+]

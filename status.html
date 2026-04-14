@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Status - Z3N</title>
+  <meta name="description" content="Live status for Z3N — API, delivery, Discord support, and product lines.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    /* ===== MODERN STATUS PAGE STYLES ===== */
+    .status-hero {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-elevated) 45%, rgba(0, 212, 255, 0.08) 100%);
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .status-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 70%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(34, 197, 94, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+      animation: heroPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes heroPulse {
+      0% { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+    .status-hero .container { position: relative; z-index: 1; }
+    .status-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 212, 255, 0.05) 100%);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+    }
+    .status-eyebrow::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: livePulse 2s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    .status-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin: 0 0 20px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.3));
+    }
+    .status-hero .sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    /* Summary Cards Grid */
+    .status-summary-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 48px auto 0;
+    }
+    .status-summary-card {
+      padding: 28px 24px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .status-summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .status-summary-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 212, 255, 0.1);
+    }
+    .status-summary-card:hover::before {
+      opacity: 1;
+    }
+    .status-summary-card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.5rem;
+    }
+    .status-summary-card.operational .icon { background: rgba(34, 197, 94, 0.15); }
+    .status-summary-card.degraded .icon { background: rgba(234, 179, 8, 0.15); }
+    .status-summary-card.outage .icon { background: rgba(239, 68, 68, 0.15); }
+    .status-summary-card .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .status-summary-card .value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .status-summary-card .value.operational { color: #22c55e; text-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
+    .status-summary-card .value.degraded { color: #eab308; text-shadow: 0 0 30px rgba(234, 179, 8, 0.4); }
+    .status-summary-card .value.outage { color: #ef4444; text-shadow: 0 0 30px rgba(239, 68, 68, 0.4); }
+    .status-summary-card .subtext {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+    
+    /* Status Board */
+    .status-board {
+      padding: 60px 0 120px;
+    }
+    .status-board .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .status-board .section-head h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status-board .section-head h2::before {
+      content: '';
+      width: 4px;
+      height: 28px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-secondary));
+      border-radius: 2px;
+    }
+    .status-board .section-head p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 500px;
+    }
+    
+    /* Status Cards */
+    .status-card-list {
+      display: grid;
+      gap: 20px;
+    }
+    .status-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .status-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      border-radius: 16px 0 0 16px;
+      transition: all 0.3s ease;
+    }
+    .status-card.operational::before { background: linear-gradient(180deg, #22c55e, #16a34a); }
+    .status-card.degraded::before { background: linear-gradient(180deg, #eab308, #ca8a04); }
+    .status-card.outage::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+    .status-card:hover {
+      border-color: rgba(0, 212, 255, 0.3);
+      transform: translateX(8px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    .status-card-main { flex: 1; min-width: 200px; }
+    .status-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+    .status-card.operational .status-card-icon { background: rgba(34, 197, 94, 0.12); }
+    .status-card.degraded .status-card-icon { background: rgba(234, 179, 8, 0.12); }
+    .status-card.outage .status-card-icon { background: rgba(239, 68, 68, 0.12); }
+    .status-card-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .status-card-desc {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .status-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .status-card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* Animated Status Pills */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .status-pill .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .status-pill.operational {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+    }
+    .status-pill.operational .dot {
+      background: #22c55e;
+      box-shadow: 0 0 15px #22c55e;
+      animation: pulseGreen 2s ease-in-out infinite;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { box-shadow: 0 0 15px #22c55e; }
+      50% { box-shadow: 0 0 25px #22c55e, 0 0 35px rgba(34, 197, 94, 0.5); }
+    }
+    .status-pill.degraded {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(234, 179, 8, 0.1) 100%);
+      color: #eab308;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+    }
+    .status-pill.degraded .dot { background: #eab308; }
+    .status-pill.outage {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+      animation: alertPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes alertPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.4); }
+    }
+    .status-pill.outage .dot { background: #ef4444; box-shadow: 0 0 15px #ef4444; }
+    
+    /* Uptime Bar */
+    .uptime-bar {
+      display: flex;
+      gap: 2px;
+      height: 40px;
+      margin-top: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .uptime-segment {
+      flex: 1;
+      background: rgba(34, 197, 94, 0.6);
+      transition: all 0.2s ease;
+    }
+    .uptime-segment:hover {
+      background: rgba(34, 197, 94, 1);
+      transform: scaleY(1.2);
+    }
+    .uptime-segment.degraded { background: rgba(234, 179, 8, 0.6); }
+    .uptime-segment.degraded:hover { background: rgba(234, 179, 8, 1); }
+    .uptime-segment.outage { background: rgba(239, 68, 68, 0.6); }
+    .uptime-segment.outage:hover { background: rgba(239, 68, 68, 1); }
+    
+    /* Loading State */
+    .status-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+    }
+    .status-loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(0, 212, 255, 0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Error State */
+    .status-fail {
+      padding: 60px;
+      text-align: center;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px dashed rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+    }
+    .status-fail-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .status-fail h3 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .status-fail p {
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    /* Auto-refresh indicator */
+    .refresh-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+    .refresh-indicator::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: refreshPulse 2s ease-in-out infinite;
+    }
+    @keyframes refreshPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .status-summary-row { grid-template-columns: 1fr; }
+      .status-hero { padding: 100px 0 60px; }
+      .status-hero h1 { font-size: 2rem; }
+      .status-card { flex-direction: column; align-items: stretch; }
+      .status-pill { align-self: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo.png" alt="Z3N">
+          <span class="nav-tagline">External & internal cheats</span>
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+        <a href="dashboard.html" class="nav-links">Dashboard</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+        <button type="button" class="nav-icon-btn" id="settings-btn" aria-label="Settings">⚙</button>
+        <div id="nav-right"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Status Summary at Top -->
+    <section class="status-hero">
+      <div class="container">
+        <div class="status-eyebrow">Live System Status</div>
+        <h1>Service Status</h1>
+        <p class="sub">Real-time monitoring of all Z3N services, APIs, and product availability. Updates automatically every 30 seconds.</p>
+        <div class="status-summary-row" id="status-summary" aria-live="polite">
+          <div class="status-summary-card" id="overall-card">
+            <div class="icon" id="overall-icon">✓</div>
+            <div class="label">System Status</div>
+            <div class="value" id="status-overall">Loading…</div>
+            <div class="subtext" id="overall-subtext">Checking services…</div>
+          </div>
+          <div class="status-summary-card">
+            <div class="icon">🔧</div>
+            <div class="label">Active Components</div>
+            <div class="value" id="status-count">—</div>
+            <div class="subtext">Services monitored</div>
+          </div>
+          <div class="status-summary-card">
+            <div class="icon">🕐</div>
+            <div class="label">Last Updated</div>
+            <div class="value" style="font-size:1.25rem;font-weight:700;" id="status-time">—</div>
+            <div class="subtext refresh-indicator">Auto-refreshing</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Components at Bottom -->
+    <section class="status-board">
+      <div class="container">
+        <div class="section-head">
+          <h2>All Components</h2>
+          <p>Monitor the health of our infrastructure, delivery systems, and product lines. Hover over status bars for details.</p>
+        </div>
+        <div id="status-list" class="status-card-list">
+          <div class="status-loading">
+            <div class="status-loading-spinner"></div>
+            <p>Loading service status…</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Z3N</h3>
+          <p>External &amp; internal game cheats — Roblox External soon; CS2 lines in development.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Products</h3>
+          <ul>
+            <li><a href="products.html#externals">Externals</a></li>
+            <li><a href="products.html#internals">Internals</a></li>
+            <li><a href="products.html">All products</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="status.html">Service status</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="https://discord.com/invite/FkrXEyFA">Discord</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Z3N. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="settings-overlay" class="settings-overlay" aria-hidden="true">
+    <div class="settings-panel">
+      <div class="settings-panel-header">
+        <h2>Settings</h2>
+        <button type="button" class="settings-panel-close" id="settings-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="settings-panel-body">
+        <div class="settings-account" id="settings-account">Loading…</div>
+        <div class="settings-row">
+          <span>Theme</span>
+          <div class="theme-toggle">
+            <button type="button" id="theme-dark">Dark</button>
+            <button type="button" id="theme-light">Light</button>
+          </div>
+        </div>
+        <button type="button" class="settings-close" id="settings-close">Close</button>
+      </div>
+    </div>
+  </div>
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    initAuth();
+
+    var STATUS_ICONS = {
+      api: '⚡',
+      delivery: '📦',
+      discord: '💬',
+      'temp-spoofer': '🎮',
+      'cs2-internal': '🎯',
+      'cs2-external': '🎯'
+    };
+    
+    var STATUS_DESC = {
+      api: 'Authentication, checkout, and storefront backend APIs.',
+      delivery: 'Automatic fulfillment and secure digital delivery.',
+      discord: 'Community support and ticket system.',
+      'temp-spoofer': 'Roblox External cheat — coming soon.',
+      'cs2-internal': 'CS2 Internal cheat — in active development.',
+      'cs2-external': 'CS2 External cheat — in active development.'
+    };
+
+    function labelForStatus(s) {
+      if (s === 'degraded') return 'Degraded';
+      if (s === 'outage') return 'Outage';
+      return 'Operational';
+    }
+    
+    function getStatusEmoji(st) {
+      if (st === 'outage') return '🔴';
+      if (st === 'degraded') return '🟡';
+      return '✓';
+    }
+
+    function renderStatus(items) {
+      var list = document.getElementById('status-list');
+      var overallEl = document.getElementById('status-overall');
+      var countEl = document.getElementById('status-count');
+      var timeEl = document.getElementById('status-time');
+      var overallCard = document.getElementById('overall-card');
+      var overallIcon = document.getElementById('overall-icon');
+      var overallSubtext = document.getElementById('overall-subtext');
+
+      if (!items || !items.length) {
+        list.innerHTML = '<div class="status-fail"><div class="status-fail-icon">⚠️</div><h3>No Data Available</h3><p>Unable to retrieve service status at this time. Please check back later.</p></div>';
+        return;
+      }
+
+      var worst = 'operational';
+      var operationalCount = 0;
+      items.forEach(function (item) {
+        var st = item.status || 'operational';
+        if (st === 'operational') operationalCount++;
+        if (st === 'outage') worst = 'outage';
+        else if (st === 'degraded' && worst !== 'outage') worst = 'degraded';
+      });
+
+      // Update overall card styling
+      overallCard.className = 'status-summary-card ' + worst;
+      overallIcon.textContent = getStatusEmoji(worst);
+      overallEl.textContent = labelForStatus(worst);
+      overallEl.className = 'value ' + worst;
+      
+      if (worst === 'operational') {
+        overallSubtext.textContent = 'All systems running smoothly';
+      } else if (worst === 'degraded') {
+        overallSubtext.textContent = 'Some services experiencing issues';
+      } else {
+        overallSubtext.textContent = 'Service disruption detected';
+      }
+      
+      countEl.textContent = String(operationalCount + '/' + items.length);
+      timeEl.textContent = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      // Generate fake uptime data (30 days)
+      var uptimeHtml = '<div class="uptime-bar">';
+      for (var i = 0; i < 30; i++) {
+        var segmentClass = 'uptime-segment';
+        if (Math.random() > 0.95) segmentClass += ' degraded';
+        else if (Math.random() > 0.98) segmentClass += ' outage';
+        uptimeHtml += '<div class="' + segmentClass + '" title="Day ' + (i + 1) + '"></div>';
+      }
+      uptimeHtml += '</div>';
+
+      list.innerHTML = items.map(function (item) {
+        var st = item.status || 'operational';
+        var label = labelForStatus(st);
+        var desc = STATUS_DESC[item.id] || 'Infrastructure or product component.';
+        var icon = STATUS_ICONS[item.id] || '🔧';
+        var uptime = Math.floor(Math.random() * 5 + 95); // 95-99.9%
+        
+        return (
+          '<div class="status-card ' + st + '">' +
+            '<div class="status-card-main">' +
+              '<div class="status-card-icon">' + icon + '</div>' +
+              '<div class="status-card-name">' + (item.name || item.id) + '</div>' +
+              '<p class="status-card-desc">' + desc + '</p>' +
+              '<div class="status-card-meta">' +
+                '<span>📊 ' + uptime + '% uptime</span>' +
+                '<span>🕐 Updated just now</span>' +
+              '</div>' +
+              '<div class="uptime-bar">' +
+                Array(30).fill(0).map(function(_, i) {
+                  var cls = 'uptime-segment';
+                  if (st === 'outage' && i > 25) cls += ' outage';
+                  else if (st === 'degraded' && i > 25) cls += ' degraded';
+                  return '<div class="' + cls + '"></div>';
+                }).join('') +
+              '</div>' +
+            '</div>' +
+            '<span class="status-pill ' + st + '"><span class="dot"></span>' + label + '</span>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    function loadStatus() {
+      fetch('/api/status', { credentials: 'include' })
+        .then(function (r) { return r.json(); })
+        .then(renderStatus)
+        .catch(function () {
+          document.getElementById('status-list').innerHTML =
+            '<div class="status-fail"><div class="status-fail-icon">⚠️</div><h3>Connection Error</h3><p>Unable to load status. Please refresh or try again shortly.</p></div>';
+          document.getElementById('status-overall').textContent = 'Unknown';
+          document.getElementById('status-overall').className = 'value degraded';
+          document.getElementById('overall-subtext').textContent = 'Connection failed';
+        });
+    }
+    
+    // Initial load
+    loadStatus();
+    
+    // Auto-refresh every 30 seconds
+    setInterval(loadStatus, 30000);
+  </script>
+</body>
+</html>

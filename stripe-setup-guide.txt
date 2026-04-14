@@ -1,0 +1,61 @@
+Stripe Configuration Guide
+===========================
+
+Where to Find Your Stripe URLs
+--------------------------------
+
+When you create a new Stripe account, here's how to find the API keys:
+
+1. Go to https://dashboard.stripe.com
+2. Sign up or log in to your account
+3. Navigate to Developers > API keys (left sidebar)
+
+Publishable Key (starts with pk_test_ or pk_live_)
+-------------------------------------------------
+- Found under "Standard keys"
+- Click "Reveal test key" or "Reveal live key"
+- Copy the key starting with "pk_test_" (for testing) or "pk_live_" (for production)
+
+Secret Key (starts with sk_test_ or sk_live_)
+---------------------------------------------
+- Found under "Standard keys" 
+- Click "Reveal test key" to show it (hidden by default for security)
+- Copy the key starting with "sk_test_" (for testing) or "sk_live_" (for production)
+
+Webhook Secret (optional, starts with whsec_)
+--------------------------------------------
+1. Go to Developers > Webhooks
+2. Click "Add endpoint"
+3. Enter your endpoint URL: https://yourdomain.com/api/webhook
+4. Select events to listen for (e.g., checkout.session.completed)
+5. After creating, click on the webhook to reveal the signing secret
+6. Copy the secret starting with "whsec_"
+
+How to Enter Keys in Admin Panel
+---------------------------------
+1. Go to your website's admin panel (/admin.html)
+2. Log in with Discord
+3. Scroll to "Stripe Configuration" section
+4. Paste your Publishable Key in the first field
+5. Paste your Secret Key in the second field
+6. (Optional) Paste Webhook Secret in the third field
+7. Click "Save Stripe Settings"
+8. Keys will be validated and saved automatically
+
+Switching to Live Mode
+----------------------
+When you're ready to accept real payments:
+1. In Stripe Dashboard, toggle from "Test mode" to "Live mode"
+2. Copy your live Publishable Key (pk_live_...)
+3. Copy your live Secret Key (sk_live_...)
+4. Enter them in the admin panel
+5. Save settings
+6. Now checkout will use real payments!
+
+Important Notes
+---------------
+- Never share your Secret Key with anyone
+- Never commit Secret Keys to public repositories
+- The Secret Key is only used server-side and never exposed to users
+- Test mode uses fake money - no real charges occur
+- Live mode processes real credit card payments

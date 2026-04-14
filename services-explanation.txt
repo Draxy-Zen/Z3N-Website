@@ -1,0 +1,36 @@
+Service Status Explanations
+===========================
+
+API (api)
+---------
+The main backend API that handles all requests between the website and server.
+- When set to "Operational": All API endpoints respond normally
+- When set to "Degraded": Some API functions may be slow or limited
+- When set to "Outage": API is completely down, website may not function
+
+Delivery (delivery)
+-------------------nThe system that delivers purchased keys to customers after payment.
+- When set to "Operational": Keys are delivered automatically after purchase
+- When set to "Degraded": Delivery may be delayed or require manual intervention
+- When set to "Outage": No keys can be delivered, purchases will fail
+
+Discord Support (discord)
+-------------------------
+The Discord support system for customer service and assistance.
+- When set to "Operational": Support staff are available and responding
+- When set to "Degraded": Slower response times, limited staff availability
+- When set to "Outage": Support is completely unavailable
+
+Temp Spoofer (temp-spoofer)
+---------------------------
+The temporary spoofer product/service availability.
+- When set to "Operational": Product is available for purchase
+- When set to "Degraded": Product may have limited stock or issues
+- When set to "Outage": Product is completely unavailable for purchase
+
+Perm Spoofer (perm-spoofer)
+---------------------------
+The permanent spoofer product/service availability.
+- When set to "Operational": Product is available for purchase
+- When set to "Degraded": Product may have limited stock or issues
+- When set to "Outage": Product is completely unavailable for purchase

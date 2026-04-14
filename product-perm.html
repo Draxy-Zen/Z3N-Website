@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perm Spoofer - Z3N</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/adsense-styles.css">
+  <style>
+    .product-detail-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .product-image-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: auto;
+    }
+    
+    .product-image-section img {
+      max-width: 100%;
+      max-height: 350px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.2);
+      border: 2px solid rgba(59, 130, 246, 0.5);
+      object-fit: cover;
+      margin-bottom: 24px;
+    }
+    
+    .product-details-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    
+    .product-header {
+      margin-bottom: 24px;
+    }
+    
+    .product-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    
+    .product-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .status-badge {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .product-description {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    
+    .what-you-get {
+      margin-bottom: 32px;
+    }
+    
+    .what-you-get h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    
+    .what-you-get ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .what-you-get li {
+      padding: 8px 0;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 24px;
+    }
+    
+    .what-you-get li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    .duration-section {
+      margin-bottom: 24px;
+    }
+    
+    .duration-section label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    
+    .duration-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .duration-option {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    
+    .duration-option:hover {
+      border-color: var(--accent);
+    }
+    
+    .duration-option.selected {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.1);
+    }
+    
+    .duration-option .duration-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    
+    .duration-option .duration-price {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+    
+    .quantity-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .quantity-section label {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .quantity-btn {
+      background: none;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1.2rem;
+    }
+    
+    .quantity-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .quantity-input {
+      border: none;
+      background: none;
+      width: 60px;
+      text-align: center;
+      padding: 8px;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    
+    .price-display {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn-add-cart {
+      flex: 1;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-add-cart:hover {
+      background: #6366f1;
+      transform: translateY(-2px);
+    }
+    
+    .btn-checkout {
+      background: var(--bg);
+      color: var(--text);
+      border: 2px solid var(--border);
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-checkout:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    .requirements-section {
+      grid-column: 1 / -1;
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 20px;
+    }
+    
+    .requirements-title {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .requirements-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .requirement-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .requirement-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 32px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+    
+    .requirement-card h4 {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    
+    .requirement-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .requirement-card li {
+      padding: 4px 0;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .requirement-card li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    
+    @media (max-width: 768px) {
+      .product-detail-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .duration-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo.png" alt="Z3N">
+          <span class="nav-tagline">External & internal cheats</span>
+        </a>
+        <a href="products.html" class="nav-links">Products</a>
+        <a href="status.html" class="nav-links">Status</a>
+        <a href="about.html" class="nav-links">About</a>
+        <a href="contact.html" class="nav-links">Contact</a>
+      </div>
+      <div class="nav-right-wrap">
+        <div id="nav-cart" class="nav-cart-wrap"></div>
+        <button type="button" class="nav-icon-btn" id="settings-btn" aria-label="Settings">⚙</button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="login-gate" class="login-gate" style="display:none">
+    <div>
+      <h1>Sign in with Discord</h1>
+      <p>You need to sign in to purchase.</p>
+      <button type="button" class="nav-cta" onclick="redirectToDiscordLogin()">Login with Discord</button>
+    </div>
+  </div>
+
+  <main id="main-content" class="product-detail-page">
+    <div class="product-detail-container">
+      <!-- Product Image Section -->
+      <div class="product-image-section">
+        <img src="assets/Perm.png" alt="PERM Spoofer">
+        
+        <!-- Requirements Section -->
+        <div class="requirements-section">
+          <h2 class="requirements-title">Requirements</h2>
+          <p class="requirements-subtitle">Make sure your setup matches these requirements.</p>
+          
+          <div class="requirements-grid">
+            <div class="requirement-card">
+              <h4>Operating System</h4>
+              <ul>
+                <li>Windows 10 - All versions</li>
+                <li>Windows 11 - All versions</li>
+                <li>Does Not Support Custom OS</li>
+              </ul>
+            </div>
+            <div class="requirement-card">
+              <h4>Components</h4>
+              <ul>
+                <li>All CPU/GPU Components</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details Section -->
+      <div class="product-details-section">
+        <div class="product-header">
+          <h1 class="product-title">PERM Spoofer</h1>
+          <div class="product-status">
+            <span class="status-badge">● Operational</span>
+          </div>
+          <p class="product-description">Permanent spoofer with R/W protected motherboards support, TPM bypass, SmBIOS fixer &amp; unspoof.</p>
+        </div>
+
+        <div class="what-you-get">
+          <h3>What you get</h3>
+          <ul>
+            <li>Fastest customer support</li>
+            <li>Detailed video instructions</li>
+            <li>Instantly delivered</li>
+            <li>R/W Protected (locked) motherboards support</li>
+            <li>TPM bypass</li>
+            <li>One click spoofer</li>
+            <li>SmBIOS fixer</li>
+            <li>Unspoof function</li>
+          </ul>
+        </div>
+
+        <div class="duration-section">
+          <label>Duration</label>
+          <div class="duration-options">
+            <div class="duration-option selected" data-duration="1" data-price="10">
+              <div class="duration-name">1 day</div>
+              <div class="duration-price">$10</div>
+            </div>
+            <div class="duration-option" data-duration="7" data-price="35">
+              <div class="duration-name">1 week</div>
+              <div class="duration-price">$35</div>
+            </div>
+            <div class="duration-option" data-duration="30" data-price="80">
+              <div class="duration-name">1 month</div>
+              <div class="duration-price">$80</div>
+            </div>
+            <div class="duration-option" data-duration="lifetime" data-price="150">
+              <div class="duration-name">Lifetime</div>
+              <div class="duration-price">$150</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quantity-section">
+          <label>Quantity</label>
+          <div class="quantity-selector">
+            <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+            <input type="number" class="quantity-input" id="qty" min="1" max="10" value="1" readonly>
+            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+          </div>
+        </div>
+
+        <div class="price-display" id="price-display">$10.00</div>
+
+        <div class="action-buttons">
+          <button type="button" class="btn-add-cart" id="add-btn">Add to cart</button>
+          <button type="button" class="btn-checkout" onclick="checkoutProductDirect('perm-spoofer', 'Perm Spoofer', selectedPrice, parseInt(document.getElementById('qty').value) || 1, document.querySelector('.duration-option.selected .duration-name').textContent)">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Z3N"></a>
+      <p>© 2025. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <div id="settings-overlay" class="settings-overlay" aria-hidden="true">
+    <div class="settings-panel">
+      <div class="settings-panel-header">
+        <h2>Settings</h2>
+        <button type="button" class="settings-panel-close" id="settings-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="settings-panel-body">
+        <div class="settings-account" id="settings-account">Loading…</div>
+        <div class="settings-row">
+          <span>Theme</span>
+          <div class="theme-toggle">
+            <button type="button" id="theme-dark">Dark</button>
+            <button type="button" id="theme-light">Light</button>
+          </div>
+        </div>
+        <button type="button" class="settings-close" id="settings-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-panel">
+      <div class="cart-panel-header">
+        <h2>Cart</h2>
+        <button type="button" class="cart-panel-close" id="cart-panel-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cart-panel-body" id="cart-panel-body">
+        <p class="cart-empty-message">Your cart is empty.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-amount">$0.00</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="checkoutWithStripe()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    initAuth({ requireLogin: true });
+    
+    let selectedDuration = 1;
+    let selectedPrice = 10;
+    
+    // Dynamic status update
+    function updateProductStatus() {
+      fetch('/api/status', { credentials: 'include' })
+        .then(function (r) { return r.json(); })
+        .then(function (items) {
+          var statusMap = {};
+          items.forEach(function (item) {
+            statusMap[item.id] = item.status;
+          });
+          
+          // Get the status for perm-spoofer
+          var productStatus = statusMap['perm-spoofer'] || 'operational';
+          var statusElement = document.querySelector('.product-status .status-badge');
+          
+          if (statusElement) {
+            var statusText = productStatus === 'degraded' ? 'Updating' : 
+                            (productStatus === 'outage' ? 'Outage' : 'Operational');
+            var statusColor = productStatus === 'degraded' ? '#f59e0b' : 
+                            (productStatus === 'outage' ? '#ef4444' : '#22c55e');
+            
+            statusElement.innerHTML = '● ' + statusText;
+            statusElement.style.color = statusColor;
+            statusElement.style.borderColor = statusColor;
+          }
+        })
+        .catch(function (err) {
+          console.log('Could not fetch status:', err);
+        });
+    }
+    
+    // Update status every 30 seconds
+    setInterval(updateProductStatus, 30000);
+    
+    // Initial status update
+    updateProductStatus();
+    
+    function updatePrice() {
+      const quantity = parseInt(document.getElementById('qty').value, 10) || 1;
+      const total = (selectedPrice * quantity);
+      document.getElementById('price-display').textContent = '$' + total.toFixed(2);
+    }
+    
+    function increaseQuantity() {
+      const input = document.getElementById('qty');
+      const current = parseInt(input.value, 10) || 1;
+      if (current < 10) {
+        input.value = current + 1;
+        updatePrice();
+      }
+    }
+    
+    function decreaseQuantity() {
+      const input = document.getElementById('qty');
+      const current = parseInt(input.value, 10) || 1;
+      if (current > 1) {
+        input.value = current - 1;
+        updatePrice();
+      }
+    }
+    
+    // Duration selection
+    document.querySelectorAll('.duration-option').forEach(option => {
+      option.addEventListener('click', function() {
+        document.querySelectorAll('.duration-option').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedDuration = this.getAttribute('data-duration');
+        selectedPrice = parseFloat(this.getAttribute('data-price'));
+        updatePrice();
+      });
+    });
+    
+    // Add to cart
+    document.getElementById('add-btn').addEventListener('click', function () {
+      const quantity = parseInt(document.getElementById('qty').value, 10) || 1;
+      const durationText = document.querySelector('.duration-option.selected .duration-name').textContent;
+      
+      addToCart({
+        id: 'perm-spoofer',
+        name: 'Perm Spoofer',
+        price: selectedPrice,
+        quantity: quantity,
+        option: durationText
+      });
+      
+      this.textContent = 'Added!';
+      setTimeout(function () { 
+        document.getElementById('add-btn').textContent = 'Add to cart'; 
+      }, 1500);
+    });
+    
+    // Initialize
+    updatePrice();
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+Stripe Configuration Explanations
+================================
+
+Publishable Key (pk_test_... or pk_live_...)
+-------------------------------------------
+Used for client-side Stripe operations.
+- This key is safe to expose in frontend JavaScript
+- Required for Stripe.js to initialize and create checkout sessions
+- Format: starts with "pk_test_" for testing, "pk_live_" for production
+- Found in your Stripe Dashboard under Developers > API keys
+
+Secret Key (sk_test_... or sk_live_...)
+---------------------------------------
+Used for server-side operations - NEVER expose to clients!
+- This key has full access to your Stripe account
+- Only used on the server to create checkout sessions and process payments
+- Format: starts with "sk_test_" for testing, "sk_live_" for production
+- Keep this secure and never share it or commit it to public repos
+- Found in your Stripe Dashboard under Developers > API keys
+
+Webhook Secret (whsec_...) - Optional
+-------------------------------------
+Used to verify webhook events from Stripe.
+- Stripe sends webhook events when payments succeed/fail
+- This secret verifies the webhook actually came from Stripe
+- Format: starts with "whsec_"
+- Found in your Stripe Dashboard under Developers > Webhooks
+- Without this, webhooks won't be verified but may still work
+
+How to use:
+1. Enter your Publishable Key for frontend checkout
+2. Enter your Secret Key for server to process payments
+3. Optional: Enter Webhook Secret for event verification
+4. Click "Save Stripe Settings"
+5. Test keys are validated before saving
+6. Checkout button will immediately use new configuration
+
+Important Notes:
+- Secret key is stored encrypted/securely on server only
+- Keys are validated against Stripe API before saving
+- If keys show dots (••••••), they're already saved
+- Changing keys takes effect immediately for new checkouts
+- checkoutWithStripe() this function will be inside the app.js file.
